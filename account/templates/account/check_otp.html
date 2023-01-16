@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}ثبت نام{% endblock %}
+
+<body>
+
+{% block content %}
+    <section class="login first grey">
+        <div class="container">
+            <div class="box-wrapper">
+                <div class="box box-border">
+                    <div class="box-body">
+                        <h4 class="text-dark text-center text-xlarge mb-5">ثبت نام</h4>
+                        {% for error in form.code.errors %}
+                            {% if form.code.errors %}
+                                <div class="alert alert-danger text-right">{{ error }}</div>
+                            {% endif %}
+                        {% endfor %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>{{ form.code.label }}</label>
+                                {{ form.code }}
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-primary btn-block text-center">ثبت نام</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+</body>

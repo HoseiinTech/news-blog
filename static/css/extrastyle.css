@@ -1,0 +1,11 @@
+.details-flex {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 25em) {
+    .details-flex {
+        margin-bottom: 60px;
+    }
+}

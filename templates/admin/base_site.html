@@ -1,0 +1,15 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}مدیریت وب سایت | وبسایت جنگو{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">مدیریت وب سایت</a></h1>
+{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/override.css' %}">
+    <link rel="icon" href="{% static 'images/logo-light.png' %}" type="image/x-icon">
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

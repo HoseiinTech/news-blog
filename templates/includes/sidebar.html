@@ -1,0 +1,60 @@
+{% load static %}
+{% load converter %}
+
+<aside>
+    <div class="aside-body">
+        <figure class="ads">
+            <a href="single-post.html">
+                <img src="{% static 'images/ad.png' %}">
+            </a>
+            <figcaption class="text-center">تبلیغات</figcaption>
+        </figure>
+    </div>
+</aside>
+<aside>
+    <h1 class="aside-title">اخبار جدید</h1>
+    <div class="aside-body">
+        {% for article in recent_article_side %}
+            <article class="article-fw mb-5">
+                <div class="inner">
+                    <figure>
+                        <a href="{{ article.get_absolute_url }}">
+                            <img src="{{ article.image.url }}">
+                        </a>
+                    </figure>
+                    <div class="details">
+                        <h1><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h1>
+                        <p>{{ article.short_description }}</p>
+                        <div class="detail">
+                            <div class="time">{{ article.jalali_date|translate_numbers }}</div>
+                            <div class="category">
+                                {% for category in article.category.all %}
+                                    {% if category.status %}
+                                        <a href="category.html">{{ category }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</aside>
+<aside>
+    <div class="aside-body">
+        <form class="newsletter">
+            <div class="icon">
+                <i class="ion-ios-email-outline"></i>
+                <h1 class="text-center">خبرنامه</h1>
+            </div>
+            <div class="input-group">
+                <input type="email" class="form-control email" placeholder="ایمیل شما">
+                <div class="input-group-btn">
+                    <button class="btn btn-primary"><i class="ion-paper-airplane mr-0"></i></button>
+                </div>
+            </div>
+            <p>برای دریافت آخرین اخبار، ایمیل خود را وارد کنید</p>
+        </form>
+    </div>
+</aside>

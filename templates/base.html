@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html dir="rtl">
+
+<head>
+    {% include 'includes/head-references.html' %}
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" href="{% static 'images/logo-light.png' %}" type="image/x-icon">
+    {% block extrastyle %}{% endblock %}
+</head>
+
+<body class="skin-orange">
+
+<header class="primary">
+    {% include 'includes/header.html' %}
+</header>
+
+{% block content %}{% endblock %}
+
+<footer class="footer">
+    {% include 'includes/footer.html' %}
+</footer>
+
+{% include 'includes/foot-references.html' %}
+
+</body>
+</html>

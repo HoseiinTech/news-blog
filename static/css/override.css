@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'IranYekan';
+    src: url("../fonts/IRANYekanRegular.woff");
+    font-weight: normal;
+}
+
+* {
+    font-family: 'IranYekan';
+}

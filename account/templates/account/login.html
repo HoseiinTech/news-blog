@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load converter %}
+
+{% block title %}ورود{% endblock %}
+
+<body>
+
+{% block content %}
+    <section class="login first grey">
+        <div class="container">
+            <div class="box-wrapper">
+                <div class="box box-border">
+                    <div class="box-body">
+                        <h4 class="text-dark text-center text-xlarge mb-5">صفحه ورود</h4>
+                        {% for error in non_error %}
+                            {% if error %}
+                                <h4 class="alert alert-danger">{{ error }}</h4>
+                            {% endif %}
+                        {% endfor %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>{{ form.phone_number.label }}</label>
+                                {{ form.phone_number }}
+                                {% for error in form.phone_number.errors %}
+                                    {% if error %}
+                                        <h4 class="alert alert-warning">{{ error|translate_numbers }}</h4>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label class="fw">رمز عبور
+                                    <a href="{% url 'forget_pass' %}" class="float-left">رمز عبور خود را فراموش کرده
+                                        اید؟</a>
+                                </label>
+                                <div style="position:relative;display:flex;width:100%;">
+                                    <div style="position:relative;width:100%">
+                                        {{ form.password }}
+                                        <input type="hidden" id="passeye-0" value="">
+                                        <div class="btn btn-primary btn-sm d-none" id="passeye-toggle-0"
+                                             style="position:absolute;left:10px;top:50%;transform:translate(0,-50%);-webkit-transform:translate(0,-50%);-o-transform:translate(0,-50%);padding: 2px 7px;font-size:12px;cursor:pointer;">
+                                            مشاهده
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="passeye-0">
+                                    <div class="btn btn-magz btn-sm" id="passeye-toggle-0"
+                                         style="position:absolute;left:10px;top:50%;transform:translate(0,-50%);-webkit-transform:translate(0,-50%);-o-transform:translate(0,-50%);padding: 2px 7px;font-size:12px;cursor:pointer;z-index: -1;">
+                                        مشاهده
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {% for error in form.captcha.errors %}
+                                    {% if form.captcha.errors %}
+                                        <h4 class="alert alert-warning">{{ error }}</h4>
+                                    {% endif %}
+                                {% endfor %}
+                                {{ form.captcha }}
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-primary btn-block text-center" type="submit">ورود</button>
+                            </div>
+                            <div class="form-group text-center font-16">
+                                <span class="text-muted">قبلا ثبت نام نکرده اید؟</span> <a href="{% url 'register' %}">ایجاد
+                                حساب کاربری</a>
+                            </div>
+                            <div class="title-line">
+                                یا
+                            </div>
+                            <a href="{% url 'social:begin' 'google-oauth2' %}"
+                               class="btn btn-social btn-block googleplus text-center">
+                                <i class="ion-social-googleplus"></i>
+                                ورود با حساب گوگل</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+</body>
