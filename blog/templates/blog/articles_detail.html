@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load converter %}
+
+{% block title %}{{ articles.title }}{% endblock %}
+
+{% block content %}
+    <section class="single">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-4 sidebar">
+                    {% include 'includes/sidebar.html' %}
+                </div>
+                <div class="col-md-12 col-lg-8 float-right">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'blog:home' %}">خانه</a></li>
+                        <li><a style="color: #F73F52">بلاگ</a></li>
+                        <li class="active">{{ articles.title }}</li>
+                    </ol>
+                    <article class="article main-article mt-5">
+                        <header>
+                            <h3 class="pt-0">{{ articles.title }}</h3>
+                            <ul class="details">
+                                <li>{{ articles.jalali_date|translate_numbers }}</li>
+                                <li>
+                                    {% for category in articles.category.all %}
+                                        {% if category.status %}
+                                            <a href="{{ category.get_absolute_url }}">{{ category }}</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </li>
+                                <li>نویسنده : <a>{{ articles.author.get_full_name }}</a></li>
+                                <li><a>{{ articles.hits.count|translate_numbers }} بازدید</a></li>
+                                <li><a>۴ نظر</a></li>
+                            </ul>
+                        </header>
+                        <div class="main">{{ articles.description|safe }}</div>
+                        <footer>
+                            <div class="col d-inline-block pr-0">
+                                <ul class="tags">
+                                    <li><a href="#">قیمت سکه</a></li>
+                                    <li><a href="#">قیمت ارز</a></li>
+                                    <li><a href="#">تورم</a></li>
+                                    <li><a href="#">نرخ رشد قیمت سکه</a></li>
+                                    <li><a href="#">نوسان ارز</a></li>
+                                    <li><a href="#">سقوط قیمت دلار</a></li>
+                                </ul>
+                            </div>
+                            <div class="col d-inline-block">
+                                <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
+                                    <div>2,347</div>
+                                </a>
+                            </div>
+                        </footer>
+                    </article>
+
+                    <div class="sharing">
+                        <div class="title"><i class="ion-android-share-alt"></i> به اشتراک گذاری این خبر</div>
+                        <ul class="social">
+                            <li>
+                                <a href="#" class="facebook">
+                                    <i class="ion-social-facebook"></i> Facebook
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="twitter">
+                                    <i class="ion-social-twitter"></i> Twitter
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="googleplus">
+                                    <i class="ion-social-googleplus"></i> Google+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="linkedin">
+                                    <i class="ion-social-linkedin"></i> Linkedin
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="skype">
+                                    <i class="ion-ios-email-outline"></i> Email
+                                </a>
+                            </li>
+                            <li class="count">
+                                ۲۰
+                                <div>اشتراک گذاری</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="line">
+                        <div>مطالب مرتبط</div>
+                    </div>
+
+                    <div class="row">
+                        <article class="article related col-md-6 col-sm-6 col-xs-12">
+                            <div class="inner">
+                                <figure>
+                                    <a href="#">
+                                        <img src="{% static 'images/news/img03.jpg' %}">
+                                    </a>
+                                </figure>
+                                <div class="padding">
+                                    <h2><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a></h2>
+                                    <div class="detail text-right mt-4">
+                                        <div class="category"><a href="category.html">اقتصادی</a></div>
+                                        <div class="time"><i class="fa fa-clock"></i> اسفند ۹۸</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="article related col-md-6 col-sm-6 col-xs-12">
+                            <div class="inner">
+                                <figure>
+                                    <a href="#">
+                                        <img src="{% static 'images/news/img08.jpg' %}">
+                                    </a>
+                                </figure>
+                                <div class="padding">
+                                    <h2><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a></h2>
+                                    <div class="detail text-right mt-4">
+                                        <div class="category"><a href="category.html">اقتصادی</a></div>
+                                        <div class="time"><i class="fa fa-clock"></i> اسفند ۹۸</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+
+                    <div class="comments my-5">
+                        <h2 class="title">نظرات <a href="#">یک دیدگاه جدید ارسال کنید.</a></h2>
+                        <div class="comment-list">
+                            <div class="item">
+                                <div class="user">
+                                    <figure>
+                                        <img src="{% static 'images/img01.jpg' %}">
+                                    </figure>
+                                    <div class="details">
+                                        <h5 class="name">لورم ایپسوم</h5>
+                                        <div class="time">24 ساعت قبل</div>
+                                        <div class="description">
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
+                                            تولید سادگی نامفهوم
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم <a href="#">لورم</a> لورم
+                                            ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
+                                            تولید سادگی نامفهوم
+                                        </div>
+                                        <footer>
+                                            <a href="#">پاسخ</a>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="user">
+                                    <figure>
+                                        <img src="{% static 'images/img01.jpg' %}">
+                                    </figure>
+                                    <div class="details">
+                                        <h5 class="name">لورم ایپسوم</h5>
+                                        <div class="time">12 ساعت قبل</div>
+                                        <div class="description">
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
+                                            تولید سادگی نامفهوم
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم <a href="#">لورم</a> لورم
+                                            ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
+                                            تولید سادگی نامفهوم
+                                        </div>
+                                        <footer>
+                                            <a href="#">پاسخ</a>
+                                        </footer>
+                                    </div>
+                                </div>
+                                <div class="reply-list">
+                                    <div class="item">
+                                        <div class="user">
+                                            <figure>
+                                                <img src="{% static 'images/img01.jpg' %}">
+                                            </figure>
+                                            <div class="details">
+                                                <h5 class="name">لورم ایپسوم</h5>
+                                                <div class="time">18 ساعت قبل</div>
+                                                <div class="description">
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
+                                                    ساختگی با تولید سادگی نامفهوم
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
+                                                    ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
+                                                    سادگی نامفهوم
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
+                                                    ساختگی با تولید سادگی نامفهوم
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
+                                                    ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
+                                                    سادگی نامفهوم
+                                                </div>
+                                                <footer>
+                                                    <a href="#">پاسخ</a>
+                                                </footer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="user">
+                                    <figure>
+                                        <img src="{% static 'images/img01.jpg' %}">
+                                    </figure>
+                                    <div class="details">
+                                        <h5 class="name">لورم ایپسوم</h5>
+                                        <div class="time">23 ساعت قبل</div>
+                                        <div class="description">
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
+                                            تولید سادگی نامفهوم
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم <a href="#">لورم</a> لورم
+                                            ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
+                                            تولید سادگی نامفهوم
+                                        </div>
+                                        <footer>
+                                            <a href="#">پاسخ</a>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="row">
+                            <div class="col-md-12">
+                                <h3 class="title">ارسال دیدگاه جدید</h3>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="name">نام <span class="required"></span></label>
+                                <input type="text" id="name" name="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="email">ایمیل <span class="required"></span></label>
+                                <input type="email" id="email" name="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="website">وب سایت</label>
+                                <input type="url" id="website" name="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="message">دیدگاه <span class="required"></span></label>
+                                <textarea class="form-control" name="message"
+                                          placeholder="دیگاه خود را بنویسید ..."></textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <button class="btn btn-primary float-right">ارسال دیدگاه</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
