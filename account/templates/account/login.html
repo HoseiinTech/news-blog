@@ -2,6 +2,9 @@
 {% load converter %}
 
 {% block title %}ورود{% endblock %}
+{% block extrastyle %}
+    <script src="https://www.google.com/recaptcha/api.js?hl=fa"></script>
+{% endblock %}
 
 <body>
 
@@ -64,13 +67,6 @@
                                 <span class="text-muted">قبلا ثبت نام نکرده اید؟</span> <a href="{% url 'register' %}">ایجاد
                                 حساب کاربری</a>
                             </div>
-                            <div class="title-line">
-                                یا
-                            </div>
-                            <a href="{% url 'social:begin' 'google-oauth2' %}"
-                               class="btn btn-social btn-block googleplus text-center">
-                                <i class="ion-social-googleplus"></i>
-                                ورود با حساب گوگل</a>
                         </form>
                     </div>
                 </div>

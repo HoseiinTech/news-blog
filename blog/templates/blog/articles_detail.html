@@ -46,11 +46,21 @@
                                     <li><a href="#">سقوط قیمت دلار</a></li>
                                 </ul>
                             </div>
-                            <div class="col d-inline-block">
-                                <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                    <div>2,347</div>
-                                </a>
-                            </div>
+                            {% if is_liked %}
+                                <div class="col d-inline-block">
+                                    <a onclick="like('{{ articles.id }}')" class="love active" id="like">
+                                        <i class="ion-android-favorite" id="like-out"></i>
+                                        <div>{{ articles.likes.all.count }}</div>
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="col d-inline-block">
+                                    <a onclick="like('{{ articles.id }}')" class="love" id="like">
+                                        <i class="ion-android-favorite-outline" id="like-out"></i>
+                                        <div>{{ articles.likes.all.count }}</div>
+                                    </a>
+                                </div>
+                            {% endif %}
                         </footer>
                     </article>
 

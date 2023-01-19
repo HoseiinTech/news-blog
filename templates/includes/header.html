@@ -94,201 +94,166 @@
         <div id="menu-list">
             <ul class="nav-list">
                 <li class="for-tablet nav-title"><a>فهرست</a></li>
-                <li class="for-tablet"><a href="login.html">ورود</a></li>
-                <li class="for-tablet"><a href="register.html">ثبت نام</a></li>
                 <li><a href="{% url 'blog:home' %}">خانه</a></li>
-                <li class="dropdown magz-dropdown">
-                    <a href="#">صفحات <i class="ion-ios-arrow-left"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="index.html">خانه</a></li>
-                        <li><a href="element.html">عناصر طراحی</a></li>
-                        <li class="dropdown magz-dropdown">
-                            <a href="#">صفحات دسترسی کاربر <i class="fa fa-angle-left"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="login.html">صفحه ورود</a></li>
-                                <li><a href="register.html">صفحه ثبت نام</a></li>
-                                <li><a href="forgot.html">صفحه فراموشی رمز عبور</a></li>
-                                <li><a href="reset.html">صفحه تغییر رمز عبور</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="category.html">صفحه دسته بندی</a></li>
-                        <li><a href="single-post.html">صفحه خبر</a></li>
-                        <li><a href="search.html">صفحه جستجو</a></li>
-                        <li><a href="contact.html">صفحه تماس با ما</a></li>
-                        <li><a href="about.html">صفحه درباره ما</a></li>
-                        <li class="dropdown magz-dropdown">
-                            <a href="#">خطا ها <i class="fa fa-angle-left"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="403.html">خطای ۴۰۳</a></li>
-                                <li><a href="404.html">خطای ۴۰۴</a></li>
-                                <li><a href="500.html">خطای ۵۰۰</a></li>
-                                <li><a href="503.html">خطای ۵۰۳</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown magz-dropdown">
-                    <a href="category.html">دسته بندی ها <i class="ion-ios-arrow-left"></i></a>
-                    <ul class="dropdown-menu">
-                        {% for category in categories %}
-                            <li>
-                                <a href="{{ category.get_absolute_url }}">{{ category }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </li>
+                <li class="for-tablet"><a href="{% url 'login' %}">ورود</a></li>
+                <li class="for-tablet"><a href="{% url 'register' %}">ثبت نام</a></li>
+                {% for category in categories %}
+                    <li class="extra-margin">
+                        <a href="{{ category.get_absolute_url }}">{{ category }}</a>
+                    </li>
+                {% endfor %}
 
-                <li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">مگامنو <i
-                        class="ion-ios-arrow-left"></i>
-                    <div class="badge">ویژه</div>
-                </a>
-                    <div class="dropdown-menu megamenu">
-                        <div class="megamenu-inner">
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <h2 class="megamenu-title">ویژه</h2>
-                                        </div>
-                                    </div>
-                                    <ul class="vertical-menu">
-                                        <li><a href="#"><i class="ion-ios-circle-outline"></i> مگامنو یک ویژگی
-                                            جدید است</a></li>
-                                        <li><a href="#"><i class="ion-ios-circle-outline"></i> این یک مثال
-                                            است</a></li>
-                                        <li><a href="#"><i class="ion-ios-circle-outline"></i> برای ساخت زیر
-                                            منوها</a></li>
-                                        <li><a href="#"><i class="ion-ios-circle-outline"></i> شما می توانید
-                                            آیتم اضافه کنید</a>
-                                        </li>
-                                        <li><a href="#"><i class="ion-ios-circle-outline"></i> آیتم های شما</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <h2 class="megamenu-title">پست های جدید</h2>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <article class="article col-lg-4 mini">
-                                            <div class="inner">
-                                                <figure>
-                                                    <a href="single-post.html">
-                                                        <img src="{% static 'images/news/img10.jpg' %}"
-                                                             alt="Sample Article">
-                                                    </a>
-                                                </figure>
-                                                <div class="padding">
-                                                    <div class="detail">
-                                                        <div class="time">۲۷ اسفند ۱۳۹۸</div>
-                                                        <div class="category"><a href="category.html">ورزشی</a>
-                                                        </div>
-                                                    </div>
-                                                    <h2><a href="single-post.html">لورم ایپسوم متن ساختگی با
-                                                        تولید
-                                                        سادگی نامفهوم</a></h2>
-                                                </div>
-                                            </div>
-                                        </article>
-                                        <article class="article col-lg-4 mini">
-                                            <div class="inner">
-                                                <figure>
-                                                    <a href="single-post.html">
-                                                        <img src="{% static 'images/news/img11.jpg' %}"
-                                                             alt="Sample Article">
-                                                    </a>
-                                                </figure>
-                                                <div class="padding">
-                                                    <div class="detail">
-                                                        <div class="time">۱۲ فروردین ۱۳۹۸</div>
-                                                        <div class="category"><a href="category.html">سلامت</a>
-                                                        </div>
-                                                    </div>
-                                                    <h2><a href="single-post.html">لورم ایپسوم متن ساختگی با
-                                                        تولید
-                                                        سادگی نامفهوم</a></h2>
-                                                </div>
-                                            </div>
-                                        </article>
-                                        <article class="article col-lg-4 mini">
-                                            <div class="inner">
-                                                <figure>
-                                                    <a href="single-post.html">
-                                                        <img src="{% static 'images/news/img14.jpg' %}"
-                                                             alt="Sample Article">
-                                                    </a>
-                                                </figure>
-                                                <div class="padding">
-                                                    <div class="detail">
-                                                        <div class="time">۱۷ فروردین ۱۳۹۸</div>
-                                                        <div class="category"><a
-                                                                href="category.html">گردشگری</a>
-                                                        </div>
-                                                    </div>
-                                                    <h2><a href="single-post.html">لورم ایپسوم متن ساختگی با
-                                                        تولید
-                                                        سادگی نامفهوم</a></h2>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                {#                <li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">مگامنو <i#}
+                {#                        class="ion-ios-arrow-left"></i>#}
+                {#                    <div class="badge">ویژه</div>#}
+                {#                </a>#}
+                {#                    <div class="dropdown-menu megamenu">#}
+                {#                        <div class="megamenu-inner">#}
+                {#                            <div class="row">#}
+                {#                                <div class="col-lg-3">#}
+                {#                                    <div class="row">#}
+                {#                                        <div class="col-lg-12">#}
+                {#                                            <h2 class="megamenu-title">ویژه</h2>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                    <ul class="vertical-menu">#}
+                {#                                        <li><a href="#"><i class="ion-ios-circle-outline"></i> مگامنو یک ویژگی#}
+                {#                                            جدید است</a></li>#}
+                {#                                        <li><a href="#"><i class="ion-ios-circle-outline"></i> این یک مثال#}
+                {#                                            است</a></li>#}
+                {#                                        <li><a href="#"><i class="ion-ios-circle-outline"></i> برای ساخت زیر#}
+                {#                                            منوها</a></li>#}
+                {#                                        <li><a href="#"><i class="ion-ios-circle-outline"></i> شما می توانید#}
+                {#                                            آیتم اضافه کنید</a>#}
+                {#                                        </li>#}
+                {#                                        <li><a href="#"><i class="ion-ios-circle-outline"></i> آیتم های شما</a>#}
+                {#                                        </li>#}
+                {#                                    </ul>#}
+                {#                                </div>#}
+                {#                                <div class="col-lg-9">#}
+                {#                                    <div class="row">#}
+                {#                                        <div class="col-lg-12">#}
+                {#                                            <h2 class="megamenu-title">پست های جدید</h2>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                    <div class="row">#}
+                {#                                        <article class="article col-lg-4 mini">#}
+                {#                                            <div class="inner">#}
+                {#                                                <figure>#}
+                {#                                                    <a href="single-post.html">#}
+                {#                                                        <img src="{% static 'images/news/img10.jpg' %}"#}
+                {#                                                             alt="Sample Article">#}
+                {#                                                    </a>#}
+                {#                                                </figure>#}
+                {#                                                <div class="padding">#}
+                {#                                                    <div class="detail">#}
+                {#                                                        <div class="time">۲۷ اسفند ۱۳۹۸</div>#}
+                {#                                                        <div class="category"><a href="category.html">ورزشی</a>#}
+                {#                                                        </div>#}
+                {#                                                    </div>#}
+                {#                                                    <h2><a href="single-post.html">لورم ایپسوم متن ساختگی با#}
+                {#                                                        تولید#}
+                {#                                                        سادگی نامفهوم</a></h2>#}
+                {#                                                </div>#}
+                {#                                            </div>#}
+                {#                                        </article>#}
+                {#                                        <article class="article col-lg-4 mini">#}
+                {#                                            <div class="inner">#}
+                {#                                                <figure>#}
+                {#                                                    <a href="single-post.html">#}
+                {#                                                        <img src="{% static 'images/news/img11.jpg' %}"#}
+                {#                                                             alt="Sample Article">#}
+                {#                                                    </a>#}
+                {#                                                </figure>#}
+                {#                                                <div class="padding">#}
+                {#                                                    <div class="detail">#}
+                {#                                                        <div class="time">۱۲ فروردین ۱۳۹۸</div>#}
+                {#                                                        <div class="category"><a href="category.html">سلامت</a>#}
+                {#                                                        </div>#}
+                {#                                                    </div>#}
+                {#                                                    <h2><a href="single-post.html">لورم ایپسوم متن ساختگی با#}
+                {#                                                        تولید#}
+                {#                                                        سادگی نامفهوم</a></h2>#}
+                {#                                                </div>#}
+                {#                                            </div>#}
+                {#                                        </article>#}
+                {#                                        <article class="article col-lg-4 mini">#}
+                {#                                            <div class="inner">#}
+                {#                                                <figure>#}
+                {#                                                    <a href="single-post.html">#}
+                {#                                                        <img src="{% static 'images/news/img14.jpg' %}"#}
+                {#                                                             alt="Sample Article">#}
+                {#                                                    </a>#}
+                {#                                                </figure>#}
+                {#                                                <div class="padding">#}
+                {#                                                    <div class="detail">#}
+                {#                                                        <div class="time">۱۷ فروردین ۱۳۹۸</div>#}
+                {#                                                        <div class="category"><a#}
+                {#                                                                href="category.html">گردشگری</a>#}
+                {#                                                        </div>#}
+                {#                                                    </div>#}
+                {#                                                    <h2><a href="single-post.html">لورم ایپسوم متن ساختگی با#}
+                {#                                                        تولید#}
+                {#                                                        سادگی نامفهوم</a></h2>#}
+                {#                                                </div>#}
+                {#                                            </div>#}
+                {#                                        </article>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </li>#}
 
-                <li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">ستون بندی <i
-                        class="ion-ios-arrow-left"></i></a>
-                    <div class="dropdown-menu megamenu">
-                        <div class="megamenu-inner">
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <h2 class="megamenu-title">ستون ۱</h2>
-                                    <ul class="vertical-menu">
-                                        <li><a href="#">مثال ۱</a></li>
-                                        <li><a href="#">مثال ۲</a></li>
-                                        <li><a href="#">مثال ۳</a></li>
-                                        <li><a href="#">مثال ۴</a></li>
-                                        <li><a href="#">مثال ۵</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-3">
-                                    <h2 class="megamenu-title">ستون ۲</h2>
-                                    <ul class="vertical-menu">
-                                        <li><a href="#">مثال ۶</a></li>
-                                        <li><a href="#">مثال ۷</a></li>
-                                        <li><a href="#">مثال ۸</a></li>
-                                        <li><a href="#">مثال ۹</a></li>
-                                        <li><a href="#">مثال ۱۰</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-3">
-                                    <h2 class="megamenu-title">ستون ۳</h2>
-                                    <ul class="vertical-menu">
-                                        <li><a href="#">مثال ۱۱</a></li>
-                                        <li><a href="#">مثال ۱۲</a></li>
-                                        <li><a href="#">مثال ۱۳</a></li>
-                                        <li><a href="#">مثال ۱۴</a></li>
-                                        <li><a href="#">مثال ۱۵</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-3">
-                                    <h2 class="megamenu-title">ستون ۴</h2>
-                                    <ul class="vertical-menu">
-                                        <li><a href="#">مثال ۱۶</a></li>
-                                        <li><a href="#">مثال ۱۷</a></li>
-                                        <li><a href="#">مثال ۱۸</a></li>
-                                        <li><a href="#">مثال ۱۹</a></li>
-                                        <li><a href="#">مثال ۲۰</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                {#                <li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">ستون بندی <i#}
+                {#                        class="ion-ios-arrow-left"></i></a>#}
+                {#                    <div class="dropdown-menu megamenu">#}
+                {#                        <div class="megamenu-inner">#}
+                {#                            <div class="row">#}
+                {#                                <div class="col-lg-3">#}
+                {#                                    <h2 class="megamenu-title">ستون ۱</h2>#}
+                {#                                    <ul class="vertical-menu">#}
+                {#                                        <li><a href="#">مثال ۱</a></li>#}
+                {#                                        <li><a href="#">مثال ۲</a></li>#}
+                {#                                        <li><a href="#">مثال ۳</a></li>#}
+                {#                                        <li><a href="#">مثال ۴</a></li>#}
+                {#                                        <li><a href="#">مثال ۵</a></li>#}
+                {#                                    </ul>#}
+                {#                                </div>#}
+                {#                                <div class="col-lg-3">#}
+                {#                                    <h2 class="megamenu-title">ستون ۲</h2>#}
+                {#                                    <ul class="vertical-menu">#}
+                {#                                        <li><a href="#">مثال ۶</a></li>#}
+                {#                                        <li><a href="#">مثال ۷</a></li>#}
+                {#                                        <li><a href="#">مثال ۸</a></li>#}
+                {#                                        <li><a href="#">مثال ۹</a></li>#}
+                {#                                        <li><a href="#">مثال ۱۰</a></li>#}
+                {#                                    </ul>#}
+                {#                                </div>#}
+                {#                                <div class="col-lg-3">#}
+                {#                                    <h2 class="megamenu-title">ستون ۳</h2>#}
+                {#                                    <ul class="vertical-menu">#}
+                {#                                        <li><a href="#">مثال ۱۱</a></li>#}
+                {#                                        <li><a href="#">مثال ۱۲</a></li>#}
+                {#                                        <li><a href="#">مثال ۱۳</a></li>#}
+                {#                                        <li><a href="#">مثال ۱۴</a></li>#}
+                {#                                        <li><a href="#">مثال ۱۵</a></li>#}
+                {#                                    </ul>#}
+                {#                                </div>#}
+                {#                                <div class="col-lg-3">#}
+                {#                                    <h2 class="megamenu-title">ستون ۴</h2>#}
+                {#                                    <ul class="vertical-menu">#}
+                {#                                        <li><a href="#">مثال ۱۶</a></li>#}
+                {#                                        <li><a href="#">مثال ۱۷</a></li>#}
+                {#                                        <li><a href="#">مثال ۱۸</a></li>#}
+                {#                                        <li><a href="#">مثال ۱۹</a></li>#}
+                {#                                        <li><a href="#">مثال ۲۰</a></li>#}
+                {#                                    </ul>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </li>#}
 
                 <li class="dropdown magz-dropdown"><a href="#">منوی کاربری <i
                         class="ion-ios-arrow-left"></i></a>

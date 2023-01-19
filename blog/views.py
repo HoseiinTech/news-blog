@@ -1,12 +1,13 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView, ListView
-from blog.models import Article, Category
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import DetailView, ListView, View
+from blog.models import Article, Category, Like
+from django.http import JsonResponse
 from django.db.models import Count, Q
 from datetime import datetime, timedelta
 
 
 class HomePageView(ListView):
-    queryset = Article.objects.filter(status=True).order_by('-created')[:4]
+    queryset = Article.objects.filter(status=True).order_by('-created')[:6]
     template_name = 'blog/home.html'
     context_object_name = 'articles'
 
@@ -33,6 +34,15 @@ class ArticleDetailView(DetailView):
 
         return article
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            if self.request.user.likes.filter(article_id=self.object.id, user_id=self.request.user.id).exists():
+                context['is_liked'] = True
+            else:
+                context['is_liked'] = False
+        return context
+
 
 class CategoryDetailView(ListView):
     context_object_name = 'articles'
@@ -50,3 +60,15 @@ class CategoryDetailView(ListView):
         slug = self.kwargs.get('slug')
         context['name_category'] = get_object_or_404(Category, slug=slug)
         return context
+
+
+def like(request, pk):
+    article = Article.objects.get(id=pk)
+    if request.user.is_authenticated:
+        try:
+            like = Like.objects.get(article_id=pk, user_id=request.user.id)
+            like.delete()
+            return JsonResponse({'result': 'unliked'})
+        except:
+            Like.objects.create(article_id=pk, user_id=request.user.id)
+            return JsonResponse({'result': 'liked'})

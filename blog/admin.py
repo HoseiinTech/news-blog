@@ -17,3 +17,6 @@ class CategoryAdmin(admin.ModelAdmin):
     list_editable = ('status',)
     search_fields = ('title',)
     list_filter = ('created', 'status')
+
+
+admin.site.register(models.Like)
