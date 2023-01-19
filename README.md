@@ -1,5 +1,5 @@
 <h1>A professional news magz with Django</h1>
-<hr>
+
 <li>Custom user model</li>
 <li>Login & Register & LogOut (OTP verification)</li>
 <li>Change password & Forgot password</li>
