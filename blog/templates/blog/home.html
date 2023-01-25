@@ -5,502 +5,140 @@
 {% block title %}خانه - وبسایت خبری مگز{% endblock %}
 
 {% block extrastyle %}
-    <link rel="stylesheet" href="{% static 'css/extrastyle.css' %}">
+<link rel="stylesheet" href="{% static 'css/extrastyle.css' %}">
 {% endblock %}
 
 {% block content %}
-    <section class="home">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                    <div class="headline">
-                        <div class="nav" id="headline-nav">
-                            <a class="right carousel-control" role="button" data-slide="next">
-                                <span class="ion-ios-arrow-right" aria-hidden="true"></span>
-                                <span class="sr-only">بعدی</span>
-                            </a>
-                            <a class="left carousel-control" role="button" data-slide="prev">
-                                <span class="ion-ios-arrow-left" aria-hidden="true"></span>
-                                <span class="sr-only">قبلی</span>
-                            </a>
-                        </div>
-                        <div class="owl-carousel owl-theme" id="headline">
-                            {% for article in articles %}
-                                {% if article.news_type %}
-                                    <div class="item">
-                                        <a href="{{ article.get_absolute_url }}">
-                                            {{ article.title }}
-                                            <div class="badge">ویژه</div>
-                                        </a>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
+<section class="home">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                {% if articles.objects.all %}
+                <div class="headline">
+                    <div class="nav" id="headline-nav">
+                        <a class="right carousel-control" role="button" data-slide="next">
+                            <span class="ion-ios-arrow-right" aria-hidden="true"></span>
+                            <span class="sr-only">بعدی</span>
+                        </a>
+                        <a class="left carousel-control" role="button" data-slide="prev">
+                            <span class="ion-ios-arrow-left" aria-hidden="true"></span>
+                            <span class="sr-only">قبلی</span>
+                        </a>
                     </div>
-                    <div class="owl-carousel owl-theme slide" id="featured">
+                    <div class="owl-carousel owl-theme" id="headline">
                         {% for article in articles %}
-                            <div class="item">
-                                <article class="featured">
-                                    <div class="overlay"></div>
-                                    <figure>
-                                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
-                                    </figure>
-                                    <div class="details details-flex">
-                                        {% for category in article.category.all %}
-                                            {% if category.status %}
-                                                <div class="category flex-category">
-                                                    <a href="{{ category.get_absolute_url }}">{{ category }}</a>
-                                                </div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    <div class="details">
-                                        <h1>
-                                            <a href="{{ article.get_absolute_url }}">{{ article.title|translate_numbers }}</a>
-                                        </h1>
-                                        <div class="time">{{ article.jalali_date|translate_numbers }}</div>
-                                    </div>
-                                </article>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div class="line">
-                        <div>آخرین اخبار</div>
-                    </div>
-                    <div class="row">
-                        {% for article in articles %}
-                            <article class="article col-md-6">
-                                <div class="inner my-1">
-                                    <figure>
-                                        <a href="single-post.html">
-                                            <img src="{{ article.image.url }}" alt="{{ article.title }}">
-                                        </a>
-                                    </figure>
-                                    <div class="padding pt-3">
-                                        <div class="detail text-right">
-                                            <div class="time">{{ article.jalali_date|translate_numbers }}<i
-                                                    class="fa fa-clock float-right ml-2 mt-0-5"></i>
-                                            </div>
-                                            <div class="category">
-                                                {% for category in article.category.all %}
-                                                    {% if category.status %}
-                                                        <a href="{{ category.get_absolute_url }}">{{ category }}</a>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                        <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
-                                        <p>{{ article.short_description|truncatewords:30 }}</p>
-                                        <footer>
-                                            <a class="btn btn-primary more" href="{{ article.get_absolute_url }}">
-                                                <div>بیشتر</div>
-                                                <div><i class="ion-ios-arrow-thin-left"></i></div>
-                                            </a>
-                                        </footer>
-                                    </div>
-                                </div>
-                            </article>
-                        {% endfor %}
-                    </div>
-                    <div class="line transparent little"></div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 trending-tags">
-                            <h1 class="title-col">برچسب های برتر</h1>
-                            <div class="body-col">
-                                <ol class="tags-list">
-                                    <li><a href="#">کرونا</a></li>
-                                    <li><a href="#">قیمت ارز</a></li>
-                                    <li><a href="#">دربی پایتخت</a></li>
-                                    <li><a href="#">واژگونی اتوبوس</a></li>
-                                    <li><a href="#">سامسونگ</a></li>
-                                    <li><a href="#">بازی جدید</a></li>
-                                    <li><a href="#">جشنواره فجر</a></li>
-                                    <li><a href="#">قیمت سکه</a></li>
-                                    <li><a href="#">برجام</a></li>
-                                    <li><a href="#">جام جهانی 2022</a></li>
-                                </ol>
-                            </div>
+                        {% if article.news_type %}
+                        <div class="item">
+                            <a href="{{ article.get_absolute_url }}">
+                                {{ article.title }}
+                                <div class="badge">ویژه</div>
+                            </a>
                         </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h1 class="title-col">
-                                اخبار داغ
-                                <div class="carousel-nav" id="hot-news-nav">
-                                    <div class="prev">
-                                        <i class="ion-ios-arrow-left"></i>
-                                    </div>
-                                    <div class="next">
-                                        <i class="ion-ios-arrow-right"></i>
-                                    </div>
-                                </div>
-                            </h1>
-                            <div class="body-col vertical-slider" data-max="4" data-nav="#hot-news-nav"
-                                 data-item="article">
-                                <article class="article-mini">
-                                    <div class="inner">
-                                        <figure>
-                                            <a href="single-post.html">
-                                                <img src="{% static 'images/news/img09.jpg' %}" alt="Sample Article">
-                                            </a>
-                                        </figure>
-                                        <div class="padding">
-                                            <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                            </a></h1>
-                                            <div class="detail">
-                                                <div class="category"><a href="category.html">سلامت</a></div>
-                                                <div class="time">12 اردیبهشت ۱۳۹۹</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="article-mini">
-                                    <div class="inner">
-                                        <figure>
-                                            <a href="single-post.html">
-                                                <img src="{% static 'images/news/img01.jpg' %}" alt="Sample Article">
-                                            </a>
-                                        </figure>
-                                        <div class="padding">
-                                            <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                            </a></h1>
-                                            <div class="detail">
-                                                <div class="category"><a href="category.html">سلامت</a></div>
-                                                <div class="time">23 فروردین ۱۳۹۸</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="article-mini">
-                                    <div class="inner">
-                                        <figure>
-                                            <a href="single-post.html">
-                                                <img src="{% static 'images/news/img05.jpg' %}" alt="Sample Article">
-                                            </a>
-                                        </figure>
-                                        <div class="padding">
-                                            <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                            </a></h1>
-                                            <div class="detail">
-                                                <div class="category"><a href="category.html">سلامت</a></div>
-                                                <div class="time">11 فروردین ۱۳۹۸</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="article-mini">
-                                    <div class="inner">
-                                        <figure>
-                                            <a href="single-post.html">
-                                                <img src="{% static 'images/news/img02.jpg' %}" alt="Sample Article">
-                                            </a>
-                                        </figure>
-                                        <div class="padding">
-                                            <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                            </a></h1>
-                                            <div class="detail">
-                                                <div class="category"><a href="category.html">گردشگری</a></div>
-                                                <div class="time">۲۷ اسفند ۱۳۹۸</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="article-mini">
-                                    <div class="inner">
-                                        <figure>
-                                            <a href="single-post.html">
-                                                <img src="{% static 'images/news/img13.jpg' %}" alt="Sample Article">
-                                            </a>
-                                        </figure>
-                                        <div class="padding">
-                                            <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                            </a></h1>
-                                            <div class="detail">
-                                                <div class="category"><a href="category.html">فناوری</a></div>
-                                                <div class="time">20 اسفند ۱۳۹۸</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="article-mini">
-                                    <div class="inner">
-                                        <figure>
-                                            <a href="single-post.html">
-                                                <img src="{% static 'images/news/img08.jpg' %}" alt="Sample Article">
-                                            </a>
-                                        </figure>
-                                        <div class="padding">
-                                            <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                            </a></h1>
-                                            <div class="detail">
-                                                <div class="category"><a href="category.html">فناوری</a></div>
-                                                <div class="time">12 اسفند ۱۳۹۸</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="line top">
-                        <div>برترین اخبار</div>
-                    </div>
-                    <div class="row">
-                        <article class="col-md-12 article-list">
-                            <div class="inner">
-                                <figure>
-                                    <a href="single-post.html">
-                                        <img src="{% static 'images/news/img11.jpg' %}" alt="Sample Article">
-                                    </a>
-                                </figure>
-                                <div class="details">
-                                    <div class="detail">
-                                        <div class="category">
-                                            <a href="#">فیلم و سینما</a>
-                                        </div>
-                                        <div class="time">20 اسفند ۱۳۹۸</div>
-                                    </div>
-                                    <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
-                                    </h1>
-                                    <p>
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                                        سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن
-                                        ساختگی با تولید سادگی نامفهوم .
-                                    </p>
-                                    <footer>
-                                        <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                            <div>۲۷۳</div>
-                                        </a>
-                                        <a class="btn btn-primary more" href="single-post.html">
-                                            <div>بیشتر</div>
-                                            <div><i class="ion-ios-arrow-thin-left"></i></div>
-                                        </a>
-                                    </footer>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="col-md-12 article-list">
-                            <div class="inner">
-                                <div class="badge">
-                                    ویژه
-                                </div>
-                                <figure>
-                                    <a href="single-post.html">
-                                        <img src="{% static 'images/news/img02.jpg' %}" alt="Sample Article">
-                                    </a>
-                                </figure>
-                                <div class="details">
-                                    <div class="detail">
-                                        <div class="category">
-                                            <a href="#">گردشگری</a>
-                                        </div>
-                                        <div class="time">۱۸ اسفند ۱۳۹۸</div>
-                                    </div>
-                                    <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
-                                    </h1>
-                                    <p>
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                                        سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن ساختگی
-                                        با تولید سادگی نامفهوم .
-                                    </p>
-                                    <footer>
-                                        <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                            <div>4209</div>
-                                        </a>
-                                        <a class="btn btn-primary more" href="single-post.html">
-                                            <div>بیشتر</div>
-                                            <div><i class="ion-ios-arrow-thin-left"></i></div>
-                                        </a>
-                                    </footer>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="col-md-12 article-list">
-                            <div class="inner">
-                                <figure>
-                                    <a href="single-post.html">
-                                        <img src="{% static 'images/news/img03.jpg' %}" alt="Sample Article">
-                                    </a>
-                                </figure>
-                                <div class="details">
-                                    <div class="detail">
-                                        <div class="category">
-                                            <a href="#">گردشگری</a>
-                                        </div>
-                                        <div class="time">۱۶ اسفند ۱۳۹۸</div>
-                                    </div>
-                                    <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم
-                                        ایپسوم
-                                        متن ساختگی با تولید سادگی نامفهوم</a></h1>
-                                    <p>
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                                        سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن ساختگی
-                                        با تولید سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                    </p>
-                                    <footer>
-                                        <a href="#" class="love active"><i class="ion-android-favorite"></i>
-                                            <div>302</div>
-                                        </a>
-                                        <a class="btn btn-primary more" href="single-post.html">
-                                            <div>بیشتر</div>
-                                            <div><i class="ion-ios-arrow-thin-left"></i></div>
-                                        </a>
-                                    </footer>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="col-md-12 article-list">
-                            <div class="inner">
-                                <figure>
-                                    <a href="single-post.html">
-                                        <img src="{% static 'images/news/img09.jpg' %}" alt="Sample Article">
-                                    </a>
-                                </figure>
-                                <div class="details">
-                                    <div class="detail">
-                                        <div class="category">
-                                            <a href="#">سلامت</a>
-                                        </div>
-                                        <div class="time">15 اسفند ۱۳۹۸</div>
-                                    </div>
-                                    <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
-                                    </h1>
-                                    <p>
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                                        سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن
-                                        ساختگی با تولید سادگی نامفهوم .
-                                    </p>
-                                    <footer>
-                                        <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                            <div>783</div>
-                                        </a>
-                                        <a class="btn btn-primary more" href="single-post.html">
-                                            <div>بیشتر</div>
-                                            <div><i class="ion-ios-arrow-thin-left"></i></div>
-                                        </a>
-                                    </footer>
-                                </div>
-                            </div>
-                        </article>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
-                <div class="col-xs-6 col-md-4 sidebar" id="sidebar">
-                    <div class="sidebar-title for-tablet">سایدبار</div>
-                    <aside>
-                        <div class="aside-body mt-3">
-                            <div class="featured-author">
-                                <div class="featured-author-inner">
-                                    <div class="featured-author-cover"
-                                         style="background-image: url('{% static 'images/news/img15.jpg' %}');">
-                                        <div class="badges">
-                                            <div class="badge-item"><i class="ion-star"></i> مدیر</div>
-                                        </div>
-                                        <div class="featured-author-center">
-                                            <figure class="featured-author-picture">
-                                                <img src="{% static 'images/img01.jpg' %}" alt="Sample Article">
-                                            </figure>
-                                            <div class="featured-author-info">
-                                                <h2 class="name">مدیر سایت</h2>
-                                            </div>
-                                        </div>
+                {% endif %}
+                <div class="owl-carousel owl-theme slide" id="featured">
+                    {% for article in articles %}
+                    <div class="item">
+                        <article class="featured">
+                            <div class="overlay"></div>
+                            <figure>
+                                <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                            </figure>
+                            <div class="details details-flex">
+                                {% for category in article.category.all %}
+                                {% if category.status %}
+                                <div class="category flex-category">
+                                    <a href="{{ category.get_absolute_url }}">{{ category }}</a>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="details">
+                                <h1>
+                                    <a href="{{ article.get_absolute_url }}">{{ article.title|translate_numbers }}</a>
+                                </h1>
+                                <div class="time">{{ article.jalali_date|translate_numbers }}</div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="line">
+                    <div>آخرین اخبار</div>
+                </div>
+                <div class="row">
+                    {% for article in articles %}
+                    <article class="article col-md-6">
+                        <div class="inner my-1">
+                            <figure>
+                                <a href="single-post.html">
+                                    <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                                </a>
+                            </figure>
+                            <div class="padding pt-3">
+                                <div class="detail text-right">
+                                    <div class="time">{{ article.jalali_date|translate_numbers }}<i
+                                            class="fa fa-clock float-right ml-2 mt-0-5"></i>
                                     </div>
-                                    <div class="featured-author-body">
-                                        <div class="featured-author-count">
-                                            <div class="item">
-                                                <a href="#">
-                                                    <div class="name">تعداد پست</div>
-                                                    <div class="value">۲۰۸</div>
-                                                </a>
-                                            </div>
-                                            <div class="item">
-                                                <a href="#">
-                                                    <div class="name">تعدا پسندها</div>
-                                                    <div class="value">۳۷۲۹</div>
-                                                </a>
-                                            </div>
-                                            <div class="item">
-                                                <a href="#">
-                                                    <div class="icon">
-                                                        <div>بیشتر</div>
-                                                        <i class="ion-chevron-left"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="featured-author-quote">
-                                            "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم"
-                                        </div>
-                                        <div class="block">
-                                            <h2 class="block-title">تصاویر</h2>
-                                            <div class="block-body">
-                                                <ul class="item-list-round" data-magnific="gallery">
-                                                    <li><a href="{% static 'images/news/img06.jpg' %}"
-                                                           style="background-image: url('{% static 'images/news/img06.jpg' %}');"></a>
-                                                    </li>
-                                                    <li><a href="{% static 'images/news/img07.jpg' %}"
-                                                           style="background-image: url('{% static 'images/news/img07.jpg' %}');"></a>
-                                                    </li>
-                                                    <li><a href="{% static 'images/news/img08.jpg' %}"
-                                                           style="background-image: url('{% static 'images/news/img08.jpg' %}');"></a>
-                                                    </li>
-                                                    <li><a href="{% static 'images/news/img09.jpg' %}"
-                                                           style="background-image: url('{% static 'images/news/img09.jpg' %}');"></a>
-                                                    </li>
-                                                    <li><a href="{% static 'images/news/img10.jpg' %}"
-                                                           style="background-image: url('{% static 'images/news/img10.jpg' %}');"></a>
-                                                    </li>
-                                                    <li><a href="{% static 'images/news/img11.jpg' %}"
-                                                           style="background-image: url('{% static 'images/news/img11.jpg' %}');"></a>
-                                                    </li>
-                                                    <li><a href="{% static 'images/news/img12.jpg' %}"
-                                                           style="background-image: url('{% static 'images/news/img12.jpg' %}');">
-                                                        <div class="more">+۲</div>
-                                                    </a></li>
-                                                    <li class="hidden"><a href="{% static 'images/news/img13.jpg' %}"
-                                                                          style="background-image: url('{% static 'images/news/img13.jpg' %}');"></a>
-                                                    </li>
-                                                    <li class="hidden"><a href="{% static 'images/news/img14.jpg' %}"
-                                                                          style="background-image: url('{% static 'images/news/img14.jpg' %}');"></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="featured-author-footer">
-                                            <a href="#">مشاهده اطلاعات همه نویسنده ها</a>
-                                        </div>
+                                    <div class="category">
+                                        {% for category in article.category.all %}
+                                        {% if category.status %}
+                                        <a href="{{ category.get_absolute_url }}">{{ category }}</a>
+                                        {% endif %}
+                                        {% endfor %}
                                     </div>
                                 </div>
+                                <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
+                                <p>{{ article.short_description|truncatewords:30 }}</p>
+                                <footer>
+                                    <a class="btn btn-primary more" href="{{ article.get_absolute_url }}">
+                                        <div>بیشتر</div>
+                                        <div><i class="ion-ios-arrow-thin-left"></i></div>
+                                    </a>
+                                </footer>
                             </div>
                         </div>
-                    </aside>
-                    <aside class="mt-3">
-                        <h1 class="aside-title">محبوب ترین اخبار <a href="#" class="all">مشاهده همه <i
-                                class="ion-ios-arrow-left"></i></a></h1>
-                        <div class="aside-body">
-                            <article class="article-mini">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single-post.html">
-                                            <img src="{% static 'images/news/img07.jpg' %}" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
-                                        </h1>
-                                    </div>
+                    </article>
+                    {% empty %}
+                    <h3>خبری برای نمایش وجود ندارد.</h3>
+                    {% endfor %}
+                </div>
+                <div class="line transparent little"></div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 trending-tags">
+                        <h1 class="title-col">برچسب های برتر</h1>
+                        <div class="body-col">
+                            <ol class="tags-list">
+                                <li><a href="#">کرونا</a></li>
+                                <li><a href="#">قیمت ارز</a></li>
+                                <li><a href="#">دربی پایتخت</a></li>
+                                <li><a href="#">واژگونی اتوبوس</a></li>
+                                <li><a href="#">سامسونگ</a></li>
+                                <li><a href="#">بازی جدید</a></li>
+                                <li><a href="#">جشنواره فجر</a></li>
+                                <li><a href="#">قیمت سکه</a></li>
+                                <li><a href="#">برجام</a></li>
+                                <li><a href="#">جام جهانی 2022</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <h1 class="title-col">
+                            اخبار داغ
+                            <div class="carousel-nav" id="hot-news-nav">
+                                <div class="prev">
+                                    <i class="ion-ios-arrow-left"></i>
                                 </div>
-                            </article>
-                            <article class="article-mini">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single-post.html">
-                                            <img src="{% static 'images/news/img14.jpg' %}" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
-                                        </h1>
-                                    </div>
+                                <div class="next">
+                                    <i class="ion-ios-arrow-right"></i>
                                 </div>
-                            </article>
+                            </div>
+                        </h1>
+                        <div class="body-col vertical-slider" data-max="4" data-nav="#hot-news-nav"
+                             data-item="article">
                             <article class="article-mini">
                                 <div class="inner">
                                     <figure>
@@ -509,8 +147,12 @@
                                         </a>
                                     </figure>
                                     <div class="padding">
-                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
-                                        </h1>
+                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                        </a></h1>
+                                        <div class="detail">
+                                            <div class="category"><a href="category.html">سلامت</a></div>
+                                            <div class="time">12 اردیبهشت ۱۳۹۹</div>
+                                        </div>
                                     </div>
                                 </div>
                             </article>
@@ -518,12 +160,16 @@
                                 <div class="inner">
                                     <figure>
                                         <a href="single-post.html">
-                                            <img src="{% static 'images/news/img11.jpg' %}" alt="Sample Article">
+                                            <img src="{% static 'images/news/img01.jpg' %}" alt="Sample Article">
                                         </a>
                                     </figure>
                                     <div class="padding">
-                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
-                                        </h1>
+                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                        </a></h1>
+                                        <div class="detail">
+                                            <div class="category"><a href="category.html">سلامت</a></div>
+                                            <div class="time">23 فروردین ۱۳۹۸</div>
+                                        </div>
                                     </div>
                                 </div>
                             </article>
@@ -531,12 +177,16 @@
                                 <div class="inner">
                                     <figure>
                                         <a href="single-post.html">
-                                            <img src="{% static 'images/news/img06.jpg' %}" alt="Sample Article">
+                                            <img src="{% static 'images/news/img05.jpg' %}" alt="Sample Article">
                                         </a>
                                     </figure>
                                     <div class="padding">
-                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
-                                        </h1>
+                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                        </a></h1>
+                                        <div class="detail">
+                                            <div class="category"><a href="category.html">سلامت</a></div>
+                                            <div class="time">11 فروردین ۱۳۹۸</div>
+                                        </div>
                                     </div>
                                 </div>
                             </article>
@@ -544,247 +194,601 @@
                                 <div class="inner">
                                     <figure>
                                         <a href="single-post.html">
-                                            <img src="{% static 'images/news/img03.jpg' %}" alt="Sample Article">
+                                            <img src="{% static 'images/news/img02.jpg' %}" alt="Sample Article">
                                         </a>
                                     </figure>
                                     <div class="padding">
-                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
-                                        </h1>
+                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                        </a></h1>
+                                        <div class="detail">
+                                            <div class="category"><a href="category.html">گردشگری</a></div>
+                                            <div class="time">۲۷ اسفند ۱۳۹۸</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="article-mini">
+                                <div class="inner">
+                                    <figure>
+                                        <a href="single-post.html">
+                                            <img src="{% static 'images/news/img13.jpg' %}" alt="Sample Article">
+                                        </a>
+                                    </figure>
+                                    <div class="padding">
+                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                        </a></h1>
+                                        <div class="detail">
+                                            <div class="category"><a href="category.html">فناوری</a></div>
+                                            <div class="time">20 اسفند ۱۳۹۸</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="article-mini">
+                                <div class="inner">
+                                    <figure>
+                                        <a href="single-post.html">
+                                            <img src="{% static 'images/news/img08.jpg' %}" alt="Sample Article">
+                                        </a>
+                                    </figure>
+                                    <div class="padding">
+                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                        </a></h1>
+                                        <div class="detail">
+                                            <div class="category"><a href="category.html">فناوری</a></div>
+                                            <div class="time">12 اسفند ۱۳۹۸</div>
+                                        </div>
                                     </div>
                                 </div>
                             </article>
                         </div>
-                    </aside>
-                    <aside>
-                        <div class="aside-body">
-                            <form class="newsletter">
-                                <div class="icon">
-                                    <i class="ion-ios-email-outline"></i>
-                                    <h1 class="text-center">خبرنامه</h1>
-                                </div>
-                                <div class="input-group">
-                                    <input type="email" class="form-control email" placeholder="ایمیل شما">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary"><i class="ion-paper-airplane mr-0"></i></button>
-                                    </div>
-                                </div>
-                                <p>برای دریافت آخرین اخبار، ایمیل خود را وارد کنید</p>
-                            </form>
-                        </div>
-                    </aside>
-                    <aside class="mt-4">
-                        <ul class="nav nav-tabs nav-justified" role="tablist">
-                            <li class="active">
-                                <a href="#recomended" aria-controls="recomended" role="tab" data-toggle="tab">
-                                    <i class="ion-android-star-outline"></i> پردیدگاه ترین اخبار
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">
-                                    <i class="ion-ios-chatboxes-outline"></i> نظرات کاربران
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="recomended">
-                                <article class="article-fw">
-                                    <div class="inner">
-                                        <figure>
-                                            <a href="single-post.html">
-                                                <img src="{% static 'images/news/img16.jpg' %}" alt="Sample Article">
-                                            </a>
-                                        </figure>
-                                        <div class="details">
-                                            <div class="detail">
-                                                <div class="time">۲۸ اسفند ۱۳۹۸</div>
-                                                <div class="category"><a href="category.html">ورزشی</a></div>
-                                            </div>
-                                            <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی
-                                                نامفهوم</a>
-                                            </h1>
-                                            <p>
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
-                                                تولید سادگی نامفهوم
-                                            </p>
-                                        </div>
-                                    </div>
-                                </article>
-                                <div class="line"></div>
-                                <article class="article-mini">
-                                    <div class="inner">
-                                        <figure>
-                                            <a href="single-post.html">
-                                                <img src="{% static 'images/news/img05.jpg' %}" alt="Sample Article">
-                                            </a>
-                                        </figure>
-                                        <div class="padding">
-                                            <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی
-                                                نامفهوم</a>
-                                            </h1>
-                                            <div class="detail">
-                                                <div class="category"><a href="category.html">سلامت</a></div>
-                                                <div class="time">۶ فروردین ۱۳۹۹</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="article-mini">
-                                    <div class="inner">
-                                        <figure>
-                                            <a href="single-post.html">
-                                                <img src="{% static 'images/news/img02.jpg' %}" alt="Sample Article">
-                                            </a>
-                                        </figure>
-                                        <div class="padding">
-                                            <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی
-                                                نامفهوم</a>
-                                            </h1>
-                                            <div class="detail">
-                                                <div class="category"><a href="category.html">گردشگری</a></div>
-                                                <div class="time">۸ فروردین ۱۳۹۸</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="article-mini">
-                                    <div class="inner">
-                                        <figure>
-                                            <a href="single-post.html">
-                                                <img src="{% static 'images/news/img10.jpg' %}" alt="Sample Article">
-                                            </a>
-                                        </figure>
-                                        <div class="padding">
-                                            <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی
-                                                نامفهوم</a>
-                                            </h1>
-                                            <div class="detail">
-                                                <div class="category"><a href="category.html">سلامت</a></div>
-                                                <div class="time">۱۰ فروردین ۱۳۹۹</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                            <div class="tab-pane comments" id="comments">
-                                <div class="comment-list sm">
-                                    <div class="item">
-                                        <div class="user">
-                                            <figure>
-                                                <img src="{% static 'images/news/img01.jpg' %}" alt="User Picture">
-                                            </figure>
-                                            <div class="details">
-                                                <h5 class="name">کاربر ۱</h5>
-                                                <div class="time">۱۲ ساعت قبل</div>
-                                                <div class="description">
-                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="user">
-                                            <figure>
-                                                <img src="{% static 'images/news/img01.jpg' %}" alt="User Picture">
-                                            </figure>
-                                            <div class="details">
-                                                <h5 class="name">کاربر ۲</h5>
-                                                <div class="time">۱۶ ساعت قبل</div>
-                                                <div class="description">
-                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="user">
-                                            <figure>
-                                                <img src="{% static 'images/news/img01.jpg' %}" alt="User Picture">
-                                            </figure>
-                                            <div class="details">
-                                                <h5 class="name">کاربر ۳</h5>
-                                                <div class="time">۱۷ ساعت قبل</div>
-                                                <div class="description">
-                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </aside>
-                    <aside id="sponsored">
-                        <h1 class="aside-title">اسپانسر ها</h1>
-                        <div class="aside-body">
-                            <ul class="sponsored">
-                                <li>
-                                    <a href="#">
-                                        <img src="{% static 'images/sponsored.png' %}" alt="Sponsored">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="{% static 'images/sponsored.png' %}" alt="Sponsored">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="{% static 'images/sponsored.png' %}" alt="Sponsored">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="{% static 'images/sponsored.png' %}" alt="Sponsored">
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </aside>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="best-of-the-week">
-        <div class="container">
-            <h1>
-                <div class="text">پربازدید ترین اخبار هفته</div>
-                <div class="carousel-nav" id="best-of-the-week-nav">
-                    <div class="prev">
-                        <i class="ion-ios-arrow-left"></i>
-                    </div>
-                    <div class="next">
-                        <i class="ion-ios-arrow-right"></i>
                     </div>
                 </div>
-            </h1>
-            <div class="owl-carousel owl-theme carousel-1">
-                {% for article in last_week_articles %}
-                    <article class="article">
+                <div class="line top">
+                    <div>برترین اخبار</div>
+                </div>
+                <div class="row">
+                    <article class="col-md-12 article-list">
                         <div class="inner">
                             <figure>
-                                <a href="{{ article.get_absolute_url }}">
-                                    <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                                <a href="single-post.html">
+                                    <img src="{% static 'images/news/img11.jpg' %}" alt="Sample Article">
                                 </a>
                             </figure>
-                            <div class="padding">
+                            <div class="details">
                                 <div class="detail">
-                                    <div class="time">{{ article.jalali_date|translate_numbers }}</div>
                                     <div class="category">
-                                        {% for category in article.category.all %}
-                                            <a href="{{ category.get_absolute_url }}">{{ category }}</a>
-                                        {% endfor %}
+                                        <a href="#">فیلم و سینما</a>
                                     </div>
+                                    <div class="time">20 اسفند ۱۳۹۸</div>
                                 </div>
-                                <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
-                                <p>{{ article.short_description|truncatewords:28 }}</p>
+                                <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
+                                </h1>
+                                <p>
+                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
+                                    سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن
+                                    ساختگی با تولید سادگی نامفهوم .
+                                </p>
+                                <footer>
+                                    <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
+                                        <div>۲۷۳</div>
+                                    </a>
+                                    <a class="btn btn-primary more" href="single-post.html">
+                                        <div>بیشتر</div>
+                                        <div><i class="ion-ios-arrow-thin-left"></i></div>
+                                    </a>
+                                </footer>
                             </div>
                         </div>
                     </article>
-                {% empty %}
-                    <h3 class="text">خبری برای نمایش در هفته اخیر وجود ندارد.</h3>
-                {% endfor %}
+                    <article class="col-md-12 article-list">
+                        <div class="inner">
+                            <div class="badge">
+                                ویژه
+                            </div>
+                            <figure>
+                                <a href="single-post.html">
+                                    <img src="{% static 'images/news/img02.jpg' %}" alt="Sample Article">
+                                </a>
+                            </figure>
+                            <div class="details">
+                                <div class="detail">
+                                    <div class="category">
+                                        <a href="#">گردشگری</a>
+                                    </div>
+                                    <div class="time">۱۸ اسفند ۱۳۹۸</div>
+                                </div>
+                                <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
+                                </h1>
+                                <p>
+                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
+                                    سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن ساختگی
+                                    با تولید سادگی نامفهوم .
+                                </p>
+                                <footer>
+                                    <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
+                                        <div>4209</div>
+                                    </a>
+                                    <a class="btn btn-primary more" href="single-post.html">
+                                        <div>بیشتر</div>
+                                        <div><i class="ion-ios-arrow-thin-left"></i></div>
+                                    </a>
+                                </footer>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-md-12 article-list">
+                        <div class="inner">
+                            <figure>
+                                <a href="single-post.html">
+                                    <img src="{% static 'images/news/img03.jpg' %}" alt="Sample Article">
+                                </a>
+                            </figure>
+                            <div class="details">
+                                <div class="detail">
+                                    <div class="category">
+                                        <a href="#">گردشگری</a>
+                                    </div>
+                                    <div class="time">۱۶ اسفند ۱۳۹۸</div>
+                                </div>
+                                <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم
+                                    ایپسوم
+                                    متن ساختگی با تولید سادگی نامفهوم</a></h1>
+                                <p>
+                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
+                                    سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن ساختگی
+                                    با تولید سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                </p>
+                                <footer>
+                                    <a href="#" class="love active"><i class="ion-android-favorite"></i>
+                                        <div>302</div>
+                                    </a>
+                                    <a class="btn btn-primary more" href="single-post.html">
+                                        <div>بیشتر</div>
+                                        <div><i class="ion-ios-arrow-thin-left"></i></div>
+                                    </a>
+                                </footer>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-md-12 article-list">
+                        <div class="inner">
+                            <figure>
+                                <a href="single-post.html">
+                                    <img src="{% static 'images/news/img09.jpg' %}" alt="Sample Article">
+                                </a>
+                            </figure>
+                            <div class="details">
+                                <div class="detail">
+                                    <div class="category">
+                                        <a href="#">سلامت</a>
+                                    </div>
+                                    <div class="time">15 اسفند ۱۳۹۸</div>
+                                </div>
+                                <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
+                                </h1>
+                                <p>
+                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
+                                    سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن
+                                    ساختگی با تولید سادگی نامفهوم .
+                                </p>
+                                <footer>
+                                    <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
+                                        <div>783</div>
+                                    </a>
+                                    <a class="btn btn-primary more" href="single-post.html">
+                                        <div>بیشتر</div>
+                                        <div><i class="ion-ios-arrow-thin-left"></i></div>
+                                    </a>
+                                </footer>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-4 sidebar" id="sidebar">
+                <div class="sidebar-title for-tablet">سایدبار</div>
+                <aside>
+                    <div class="aside-body mt-3">
+                        <div class="featured-author">
+                            <div class="featured-author-inner">
+                                <div class="featured-author-cover"
+                                     style="background-image: url('{% static 'images/news/img15.jpg' %}');">
+                                    <div class="badges">
+                                        <div class="badge-item"><i class="ion-star"></i> مدیر</div>
+                                    </div>
+                                    <div class="featured-author-center">
+                                        <figure class="featured-author-picture">
+                                            <img src="{% static 'images/img01.jpg' %}" alt="Sample Article">
+                                        </figure>
+                                        <div class="featured-author-info">
+                                            <h2 class="name">مدیر سایت</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="featured-author-body">
+                                    <div class="featured-author-count">
+                                        <div class="item">
+                                            <a href="#">
+                                                <div class="name">تعداد پست</div>
+                                                <div class="value">۲۰۸</div>
+                                            </a>
+                                        </div>
+                                        <div class="item">
+                                            <a href="#">
+                                                <div class="name">تعدا پسندها</div>
+                                                <div class="value">۳۷۲۹</div>
+                                            </a>
+                                        </div>
+                                        <div class="item">
+                                            <a href="#">
+                                                <div class="icon">
+                                                    <div>بیشتر</div>
+                                                    <i class="ion-chevron-left"></i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="featured-author-quote">
+                                        "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم"
+                                    </div>
+                                    <div class="block">
+                                        <h2 class="block-title">تصاویر</h2>
+                                        <div class="block-body">
+                                            <ul class="item-list-round" data-magnific="gallery">
+                                                <li><a href="{% static 'images/news/img06.jpg' %}"
+                                                       style="background-image: url('{% static 'images/news/img06.jpg' %}');"></a>
+                                                </li>
+                                                <li><a href="{% static 'images/news/img07.jpg' %}"
+                                                       style="background-image: url('{% static 'images/news/img07.jpg' %}');"></a>
+                                                </li>
+                                                <li><a href="{% static 'images/news/img08.jpg' %}"
+                                                       style="background-image: url('{% static 'images/news/img08.jpg' %}');"></a>
+                                                </li>
+                                                <li><a href="{% static 'images/news/img09.jpg' %}"
+                                                       style="background-image: url('{% static 'images/news/img09.jpg' %}');"></a>
+                                                </li>
+                                                <li><a href="{% static 'images/news/img10.jpg' %}"
+                                                       style="background-image: url('{% static 'images/news/img10.jpg' %}');"></a>
+                                                </li>
+                                                <li><a href="{% static 'images/news/img11.jpg' %}"
+                                                       style="background-image: url('{% static 'images/news/img11.jpg' %}');"></a>
+                                                </li>
+                                                <li><a href="{% static 'images/news/img12.jpg' %}"
+                                                       style="background-image: url('{% static 'images/news/img12.jpg' %}');">
+                                                    <div class="more">+۲</div>
+                                                </a></li>
+                                                <li class="hidden"><a href="{% static 'images/news/img13.jpg' %}"
+                                                                      style="background-image: url('{% static 'images/news/img13.jpg' %}');"></a>
+                                                </li>
+                                                <li class="hidden"><a href="{% static 'images/news/img14.jpg' %}"
+                                                                      style="background-image: url('{% static 'images/news/img14.jpg' %}');"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="featured-author-footer">
+                                        <a href="#">مشاهده اطلاعات همه نویسنده ها</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <aside class="mt-3">
+                    <h1 class="aside-title">محبوب ترین اخبار <a href="#" class="all">مشاهده همه <i
+                            class="ion-ios-arrow-left"></i></a></h1>
+                    <div class="aside-body">
+                        <article class="article-mini">
+                            <div class="inner">
+                                <figure>
+                                    <a href="single-post.html">
+                                        <img src="{% static 'images/news/img07.jpg' %}" alt="Sample Article">
+                                    </a>
+                                </figure>
+                                <div class="padding">
+                                    <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
+                                    </h1>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="article-mini">
+                            <div class="inner">
+                                <figure>
+                                    <a href="single-post.html">
+                                        <img src="{% static 'images/news/img14.jpg' %}" alt="Sample Article">
+                                    </a>
+                                </figure>
+                                <div class="padding">
+                                    <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
+                                    </h1>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="article-mini">
+                            <div class="inner">
+                                <figure>
+                                    <a href="single-post.html">
+                                        <img src="{% static 'images/news/img09.jpg' %}" alt="Sample Article">
+                                    </a>
+                                </figure>
+                                <div class="padding">
+                                    <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
+                                    </h1>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="article-mini">
+                            <div class="inner">
+                                <figure>
+                                    <a href="single-post.html">
+                                        <img src="{% static 'images/news/img11.jpg' %}" alt="Sample Article">
+                                    </a>
+                                </figure>
+                                <div class="padding">
+                                    <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
+                                    </h1>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="article-mini">
+                            <div class="inner">
+                                <figure>
+                                    <a href="single-post.html">
+                                        <img src="{% static 'images/news/img06.jpg' %}" alt="Sample Article">
+                                    </a>
+                                </figure>
+                                <div class="padding">
+                                    <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
+                                    </h1>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="article-mini">
+                            <div class="inner">
+                                <figure>
+                                    <a href="single-post.html">
+                                        <img src="{% static 'images/news/img03.jpg' %}" alt="Sample Article">
+                                    </a>
+                                </figure>
+                                <div class="padding">
+                                    <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a>
+                                    </h1>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </aside>
+                <aside>
+                    <div class="aside-body">
+                        <form class="newsletter">
+                            <div class="icon">
+                                <i class="ion-ios-email-outline"></i>
+                                <h1 class="text-center">خبرنامه</h1>
+                            </div>
+                            <div class="input-group">
+                                <input type="email" class="form-control email" placeholder="ایمیل شما">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary"><i class="ion-paper-airplane mr-0"></i></button>
+                                </div>
+                            </div>
+                            <p>برای دریافت آخرین اخبار، ایمیل خود را وارد کنید</p>
+                        </form>
+                    </div>
+                </aside>
+                <aside class="mt-4">
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <li class="active">
+                            <a href="#recomended" aria-controls="recomended" role="tab" data-toggle="tab">
+                                <i class="ion-android-star-outline"></i> پردیدگاه ترین اخبار
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">
+                                <i class="ion-ios-chatboxes-outline"></i> نظرات کاربران
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="recomended">
+                            <article class="article-fw">
+                                <div class="inner">
+                                    <figure>
+                                        <a href="single-post.html">
+                                            <img src="{% static 'images/news/img16.jpg' %}" alt="Sample Article">
+                                        </a>
+                                    </figure>
+                                    <div class="details">
+                                        <div class="detail">
+                                            <div class="time">۲۸ اسفند ۱۳۹۸</div>
+                                            <div class="category"><a href="category.html">ورزشی</a></div>
+                                        </div>
+                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی
+                                            نامفهوم</a>
+                                        </h1>
+                                        <p>
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
+                                            تولید سادگی نامفهوم
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                            <div class="line"></div>
+                            <article class="article-mini">
+                                <div class="inner">
+                                    <figure>
+                                        <a href="single-post.html">
+                                            <img src="{% static 'images/news/img05.jpg' %}" alt="Sample Article">
+                                        </a>
+                                    </figure>
+                                    <div class="padding">
+                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی
+                                            نامفهوم</a>
+                                        </h1>
+                                        <div class="detail">
+                                            <div class="category"><a href="category.html">سلامت</a></div>
+                                            <div class="time">۶ فروردین ۱۳۹۹</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="article-mini">
+                                <div class="inner">
+                                    <figure>
+                                        <a href="single-post.html">
+                                            <img src="{% static 'images/news/img02.jpg' %}" alt="Sample Article">
+                                        </a>
+                                    </figure>
+                                    <div class="padding">
+                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی
+                                            نامفهوم</a>
+                                        </h1>
+                                        <div class="detail">
+                                            <div class="category"><a href="category.html">گردشگری</a></div>
+                                            <div class="time">۸ فروردین ۱۳۹۸</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="article-mini">
+                                <div class="inner">
+                                    <figure>
+                                        <a href="single-post.html">
+                                            <img src="{% static 'images/news/img10.jpg' %}" alt="Sample Article">
+                                        </a>
+                                    </figure>
+                                    <div class="padding">
+                                        <h1><a href="single-post.html">لورم ایپسوم متن ساختگی با تولید سادگی
+                                            نامفهوم</a>
+                                        </h1>
+                                        <div class="detail">
+                                            <div class="category"><a href="category.html">سلامت</a></div>
+                                            <div class="time">۱۰ فروردین ۱۳۹۹</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="tab-pane comments" id="comments">
+                            <div class="comment-list sm">
+                                <div class="item">
+                                    <div class="user">
+                                        <figure>
+                                            <img src="{% static 'images/news/img01.jpg' %}" alt="User Picture">
+                                        </figure>
+                                        <div class="details">
+                                            <h5 class="name">کاربر ۱</h5>
+                                            <div class="time">۱۲ ساعت قبل</div>
+                                            <div class="description">
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="user">
+                                        <figure>
+                                            <img src="{% static 'images/news/img01.jpg' %}" alt="User Picture">
+                                        </figure>
+                                        <div class="details">
+                                            <h5 class="name">کاربر ۲</h5>
+                                            <div class="time">۱۶ ساعت قبل</div>
+                                            <div class="description">
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="user">
+                                        <figure>
+                                            <img src="{% static 'images/news/img01.jpg' %}" alt="User Picture">
+                                        </figure>
+                                        <div class="details">
+                                            <h5 class="name">کاربر ۳</h5>
+                                            <div class="time">۱۷ ساعت قبل</div>
+                                            <div class="description">
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <aside id="sponsored">
+                    <h1 class="aside-title">اسپانسر ها</h1>
+                    <div class="aside-body">
+                        <ul class="sponsored">
+                            <li>
+                                <a href="#">
+                                    <img src="{% static 'images/sponsored.png' %}" alt="Sponsored">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="{% static 'images/sponsored.png' %}" alt="Sponsored">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="{% static 'images/sponsored.png' %}" alt="Sponsored">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="{% static 'images/sponsored.png' %}" alt="Sponsored">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<section class="best-of-the-week">
+    <div class="container">
+        <h1>
+            <div class="text">پربازدید ترین اخبار هفته</div>
+            <div class="carousel-nav" id="best-of-the-week-nav">
+                <div class="prev">
+                    <i class="ion-ios-arrow-left"></i>
+                </div>
+                <div class="next">
+                    <i class="ion-ios-arrow-right"></i>
+                </div>
+            </div>
+        </h1>
+        <div class="owl-carousel owl-theme carousel-1">
+            {% for article in last_week_articles %}
+            <article class="article">
+                <div class="inner">
+                    <figure>
+                        <a href="{{ article.get_absolute_url }}">
+                            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                        </a>
+                    </figure>
+                    <div class="padding">
+                        <div class="detail">
+                            <div class="time">{{ article.jalali_date|translate_numbers }}</div>
+                            <div class="category">
+                                {% for category in article.category.all %}
+                                <a href="{{ category.get_absolute_url }}">{{ category }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
+                        <p>{{ article.short_description|truncatewords:28 }}</p>
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <h3 class="text">خبری برای نمایش در هفته اخیر وجود ندارد.</h3>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}
