@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7z*pe$dsrl+o21msyi^h8-z4=1u0pz)jivsms@(bh3pg*@g6n6'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -128,8 +128,6 @@ LOGIN_REDIRECT_URL = '/'
 
 # reCAPTCHA
 
-# RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
-# RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
-RECAPTCHA_PUBLIC_KEY = '6LdiVPwjAAAAAPLCpbcO9sWF6rFrO2IXuJ2-6yk9'
-RECAPTCHA_PRIVATE_KEY = '6LdiVPwjAAAAANSWnDy7oks1VTkj5O6zxopSvsJt'
+RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']

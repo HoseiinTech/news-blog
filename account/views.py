@@ -4,13 +4,14 @@ from django.views.generic import View, FormView
 from account.forms import LoginForm, RegisterForm, CheckOtpForm, \
     ProfileForm, ForgetPasswordForm, ChangePasswordForm
 
+from decouple import config
 import ghasedakpack
 from random import randint
 from account.models import OTP, User
 from django.utils.crypto import get_random_string, RANDOM_STRING_CHARS
 from django.contrib.auth.hashers import check_password
 
-SMS = ghasedakpack.Ghasedak('62d60637671d9868c25ccf749e5fedf6104f0617d0228469769511f2a00a4a36')
+SMS = ghasedakpack.Ghasedak(config('SMS_API'))
 
 
 # Login & Logout Views
