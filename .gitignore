@@ -129,3 +129,13 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# My gitignore
+.idea/
+account/__pychache__/
+account/migrations/
+blog/__pychache__/
+blog/migrations/
+context_processors/__pycache__/
+extensions/__pycache__/
+news_blog/__pycache__/
