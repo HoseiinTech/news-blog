@@ -68,7 +68,7 @@ class RegisterView(View):
             phone_number = form.cleaned_data.get('phone_number')
             password = form.cleaned_data.get('password1')
             if not User.objects.filter(phone_number=phone_number).exists():
-                # SMS.verification({'receptor': phone_number, 'type': '1', 'template': 'mags', 'param1': random_code})
+                SMS.verification({'receptor': phone_number, 'type': '1', 'template': 'mags', 'param1': random_code})
                 print(random_code)
                 OTP.objects.create(phone_number=phone_number, code=random_code, token=token, password=password)
                 return redirect(reverse('check_otp') + f'?token={token}')
