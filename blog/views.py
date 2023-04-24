@@ -72,3 +72,8 @@ def like(request, pk):
         except:
             Like.objects.create(article_id=pk, user_id=request.user.id)
             return JsonResponse({'result': 'liked'})
+
+def search(request):
+    q = request.GET.get('q')
+    articles = Article.objects.filter(title__icontains=q)
+    return render(request, "blog/search_detail.html", {"articles": articles, "qsearch": q})

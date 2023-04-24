@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load converter %}
+
+{% block title %}جستجو برای {{ qsearch }}{% endblock %}
+
+<body>
+
+{% block content %}
+    <section class="category">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-8 text-left">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ol class="breadcrumb">
+                                <li><a href="#">خانه</a></li>
+                                <li><a style="color: #F73F52">جستجو</a></li>
+                            </ol>
+                            <h1 class="page-title mt-3"> جستجو بر اساس : {{ qsearch }}</h1>
+                        </div>
+                    </div>
+                    <div class="line mt-1"></div>
+                    <div class="row">
+                        {% for article in articles %}
+                            <article class="col-md-12 article-list">
+                                <div class="inner">
+                                    <figure>
+                                        <a href="{{ article.get_absolute_url }}">
+                                            <img src="{{ article.image.url }}">
+                                        </a>
+                                    </figure>
+                                    <div class="details">
+                                        <div class="detail text-right d-flex">
+                                            <div class="category">
+                                                {% for category in article.category.all %}
+                                                    <a href="{{ category.get_absolute_url }}">{{ category }}</a>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="time"><i class="fa fa-clock"></i>
+                                                {{ article.jalali_date|translate_numbers }}
+                                            </div>
+                                        </div>
+                                        <h1 class="pt-0"><a
+                                                href="{{ article.get_absolute_url }}">{{ article.title }}</a></h1>
+                                        <p>{{ article.short_description|truncatewords:30 }}</p>
+                                        <footer class="mt-2">
+                                            <a class="btn btn-primary more" href="{{ article.get_absolute_url }}">
+                                                <div>بیشتر</div>
+                                                <div><i class="ion-ios-arrow-thin-left"></i></div>
+                                            </a>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </article>
+                        {% empty %}
+                            <h2 style="margin: auto;margin-bottom: 20px;">خبری برای نمایش وجود ندارد.</h2>
+                        {% endfor %}
+
+                        {# <-- Pagination --> #}
+                        <div class="col-md-12 text-center d-flex justify-content-center">
+                            {% if page_obj.has_other_pages %}
+                                <ul class="pagination">
+                                    {% if page_obj.has_previous %}
+                                        <li class="prev"><a href="?page={{ page_obj.previous_page_number }}"><i
+                                                class="ion-ios-arrow-right"></i></a></li>
+                                    {% endif %}
+                                    {% for article in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == article %}
+                                            <li class="active"><a href="?page={{ article }}">{{ article }}</a></li>
+                                        {% else %}
+                                            <li><a href="?page={{ article }}">{{ article }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if page_obj.has_next %}
+                                        <li class="next"><a href="?page={{ page_obj.next_page_number }}"><i
+                                                class="ion-ios-arrow-left"></i></a></li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        {# <-- End Pagination --> #}
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4 sidebar">
+                    {% include 'includes/sidebar.html' %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+</body>
+
