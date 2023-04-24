@@ -9,4 +9,5 @@
 <li>Written as class based views</li>
 <li>IP address saver(Middleware)</li>
 <li>reCAPTCHA system</li>
+<li>Simple search system</li>
 <li>Convert Gregorian date to solar(extension)</li>
