@@ -1,8 +1,0 @@
-SECRET_KEY= #enter the secret of django project.
-RECAPTCHA_PUBLIC_KEY= #enter the reCAPTCHA public key.
-RECAPTCHA_PRIVET_KEY= #enter the reCAPTCHA privet(secret) key.
-SMS_API= #enter the sms API of ghasedak operator.
-
-
-
-# Developed by Mohammad Hossein Mahmoudian :)
