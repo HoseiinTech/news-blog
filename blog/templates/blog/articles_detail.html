@@ -32,7 +32,7 @@
                             <li>نویسنده : <a>{{ articles.author.get_full_name }}</a></li>
                             <li><a>{{ articles.hits.all.count|translate_numbers }} بازدید</a></li>
                             <li><a>{{ articles.likes.all.count|translate_numbers }} پسند</a></li>
-                            <li><a>۴ نظر</a></li>
+                            <li><a>{{ articles.comments.all.count|translate_numbers }} نظر</a></li>
                         </ul>
                     </header>
                     <div class="main">
@@ -145,134 +145,106 @@
                     </article>
                 </div>
 
-
+                <!-- بخش نظرات و فرم ارسال دیدگاه -->
                 <div class="comments my-5">
-                    <h2 class="title">نظرات <a href="#">یک دیدگاه جدید ارسال کنید.</a></h2>
+                    <h2 class="title" id="comments">نظرات <a href="#comments">یک دیدگاه جدید ارسال کنید.</a></h2>
                     <div class="comment-list">
-                        <div class="item">
-                            <div class="user">
-                                <figure>
-                                    <img src="{% static 'images/img01.jpg' %}">
-                                </figure>
-                                <div class="details">
-                                    <h5 class="name">لورم ایپسوم</h5>
-                                    <div class="time">24 ساعت قبل</div>
-                                    <div class="description">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
-                                        تولید سادگی نامفهوم
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم <a href="#">لورم</a> لورم
-                                        ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
-                                        تولید سادگی نامفهوم
-                                    </div>
-                                    <footer>
-                                        <a href="#">پاسخ</a>
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="user">
-                                <figure>
-                                    <img src="{% static 'images/img01.jpg' %}">
-                                </figure>
-                                <div class="details">
-                                    <h5 class="name">لورم ایپسوم</h5>
-                                    <div class="time">12 ساعت قبل</div>
-                                    <div class="description">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
-                                        تولید سادگی نامفهوم
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم <a href="#">لورم</a> لورم
-                                        ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
-                                        تولید سادگی نامفهوم
-                                    </div>
-                                    <footer>
-                                        <a href="#">پاسخ</a>
-                                    </footer>
-                                </div>
-                            </div>
-                            <div class="reply-list">
+                        {% for comment in articles.comments.all %}
+                            {% if comment.parent == None %}
                                 <div class="item">
                                     <div class="user">
                                         <figure>
-                                            <img src="{% static 'images/img01.jpg' %}">
+                                            {% if comment.author.profile_photo %}
+                                                {% if comment.author.profile_photo.url == '/media/None.png' %}
+                                                    <img src="{% static 'images/None.png' %}"
+                                                         alt="{{ comment.author.get_full_name }}"
+                                                         style="border-radius: 100%;width: 50%;height: 50%;margin-bottom: 10px;margin-left: 10px;">
+                                                {% else %}
+                                                    <img src="{{ comment.author.profile_photo.url }}"
+                                                         alt="{{ comment.author.get_full_name }}"
+                                                         style="border-radius: 100%;width: 50%;height: 50%;margin-bottom: 10px;margin-left: 10px;">
+                                                {% endif %}
+                                            {% else %}
+                                                <img src="{% static 'images/None.png' %}"
+                                                     alt="{{ comment.author.get_full_name }}"
+                                                     style="border-radius: 100%;width: 50%;height: 50%;margin-bottom: 10px;margin-left: 10px;">
+                                            {% endif %}                                        
                                         </figure>
                                         <div class="details">
-                                            <h5 class="name">لورم ایپسوم</h5>
-                                            <div class="time">18 ساعت قبل</div>
-                                            <div class="description">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
-                                                ساختگی با تولید سادگی نامفهوم
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
-                                                ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                                                سادگی نامفهوم
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
-                                                ساختگی با تولید سادگی نامفهوم
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
-                                                ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                                                سادگی نامفهوم
-                                            </div>
+                                            <h5 class="name">{{ comment.author.username }}</h5>
+                                            <div class="time">{{ comment.jalali_date }}</div>
+                                            <div class="description">{{ comment.text }}</div>
                                             <footer>
-                                                <a href="#">پاسخ</a>
+                                                <a onclick="set_value( {{ comment.id }} )" href="#didgah">پاسخ</a>
                                             </footer>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="user">
-                                <figure>
-                                    <img src="{% static 'images/img01.jpg' %}">
-                                </figure>
-                                <div class="details">
-                                    <h5 class="name">لورم ایپسوم</h5>
-                                    <div class="time">23 ساعت قبل</div>
-                                    <div class="description">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
-                                        تولید سادگی نامفهوم
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم <a href="#">لورم</a> لورم
-                                        ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
-                                        تولید سادگی نامفهوم
-                                    </div>
-                                    <footer>
-                                        <a href="#">پاسخ</a>
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
+
+                                        {% for reply in comment.replies.all %}
+                                            <div class="reply-list">                 
+                                                <div class="item">
+                                                    <div class="user">
+                                                        <figure>
+                                                            {% if reply.author.profile_photo %}
+                                                                {% if reply.author.profile_photo.url == '/media/None.png' %}
+                                                                    <img src="{% static 'images/None.png' %}"
+                                                                            alt="{{ reply.author.get_full_name }}"
+                                                                            style="border-radius: 100%;width: 50%;height: 50%;margin-bottom: 10px;margin-left: 10px;">
+                                                                {% else %}
+                                                                    <img src="{{ reply.author.profile_photo.url }}"
+                                                                            alt="{{ reply.author.get_full_name }}"
+                                                                            style="border-radius: 100%;width: 50%;height: 50%;margin-bottom: 10px;margin-left: 10px;">
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <img src="{% static 'images/None.png' %}"
+                                                                        alt="{{ reply.author.get_full_name }}"
+                                                                        style="border-radius: 100%;width: 50%;height: 50%;margin-bottom: 10px;margin-left: 10px;">
+                                                            {% endif %}                                        
+                                                        </figure>
+                                                        <div class="details">
+                                                            <h5 class="name">{{ reply.author.username }}</h5>
+                                                            <div class="time">{{ reply.jalali_date }}</div>
+                                                            <div class="description">{{ reply.text }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                </div>      
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                    <form class="row">
-                        <div class="col-md-12">
-                            <h3 class="title">ارسال دیدگاه جدید</h3>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="name">نام <span class="required"></span></label>
-                            <input type="text" id="name" name="" class="form-control">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="email">ایمیل <span class="required"></span></label>
-                            <input type="email" id="email" name="" class="form-control">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="website">وب سایت</label>
-                            <input type="url" id="website" name="" class="form-control">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label for="message">دیدگاه <span class="required"></span></label>
-                            <textarea class="form-control" name="message"
-                                      placeholder="دیگاه خود را بنویسید ..."></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <button class="btn btn-primary float-right">ارسال دیدگاه</button>
-                        </div>
-                    </form>
+                    <!-- فرم ارسال دیدگاه -->
+                     {% if request.user.is_authenticated %}
+                        <form class="row" method="post">
+                            {% csrf_token %}
+                            <div class="col-md-12">
+                                <h3 class="title" id="didgah">ارسال دیدگاه جدید</h3>
+                            </div>
+                            <div class="form-group col-md-12">{{ form.parent_id }}</div>
+                            <div class="form-group col-md-12">
+                                <label for="message" id="didgah-label">دیدگاه <span class="required"></span> :</label>
+                                {{ form.text }}
+                            </div>
+                            <div class="form-group col-md-12">
+                                <button class="btn btn-primary float-right">ارسال دیدگاه</button>
+                            </div>
+                        </form>
+                    {% else %}
+                    <h2 class="title" id="comments">برای ارسال دیدگاه <a style="font-size: larger;" href="{% url 'login' %}">وارد</a> شوید</h2>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    function set_value(id){
+        document.getElementById('parent_id').value = id
+        document.getElementById('didgah').innerHTML = 'ارسال پاسخ جدید'
+        document.getElementById('didgah-body').placeholder = 'پاسخ خود را برای دیدگاه انتخاب شده بنویسید'
+    }
+</script>
 
 {% endblock %}

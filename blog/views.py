@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import DetailView, ListView, View
-from blog.models import Article, Category, Like
+from blog.models import Article, Category, Like, Comment
+from blog.forms import CommentForm
 from django.http import JsonResponse
 from django.db.models import Count, Q
+from django.urls import reverse_lazy, reverse
 from datetime import datetime, timedelta
 
 
@@ -22,6 +24,7 @@ class HomePageView(ListView):
 
 class ArticleDetailView(DetailView):
     context_object_name = 'articles'
+    form_class = CommentForm
     template_name = 'blog/articles_detail.html'
 
     def get_object(self, queryset=None):
@@ -36,12 +39,29 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['form'] = self.form_class(self.request.POST)
+
         if self.request.user.is_authenticated:
             if self.request.user.likes.filter(article_id=self.object.id, user_id=self.request.user.id).exists():
                 context['is_liked'] = True
             else:
-                context['is_liked'] = False
+                context['is_liked'] = False   
+
         return context
+        
+    def post(self, request, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data.get('text')
+            parent_id = form.cleaned_data.get('parent_id')
+            if parent_id == 'NONE':
+                Comment.objects.create(text=text, article=self.get_object(self) , author_id=self.request.user.id)
+                return redirect(reverse('blog:article_detail', kwargs={'slug': self.kwargs.get('slug')})+'#comments')
+            else:
+                Comment.objects.create(text=text, article=self.get_object(self) , author_id=self.request.user.id, parent_id=parent_id)
+                return redirect(reverse('blog:article_detail', kwargs={'slug': self.kwargs.get('slug')})+'#comments')                
+
+        return render(request, self.template_name)
 
 
 class CategoryDetailView(ListView):
@@ -77,3 +97,4 @@ def search(request):
     q = request.GET.get('q')
     articles = Article.objects.filter(title__icontains=q)
     return render(request, "blog/search_detail.html", {"articles": articles, "qsearch": q})
+

@@ -112,7 +112,7 @@ class ArticleHit(models.Model):
     ip_address = models.ForeignKey(IpAddress, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
-
+# <- Like system model ->
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes', verbose_name='کاربر')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='likes', verbose_name='مقاله')
@@ -125,3 +125,25 @@ class Like(models.Model):
         ordering = ('-created',)
         verbose_name = 'لایک'
         verbose_name_plural = 'لایک ها'
+
+# <- Comment system model ->
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', verbose_name='نویسنده')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments', verbose_name='مقاله')
+    text = models.TextField(verbose_name='متن')
+
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies', verbose_name='پاسخ')
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='زمان ایجاد')
+    
+    def jalali_date(self):
+        return jalali_converter(self.created_at)
+
+    jalali_date.short_description = 'تاریخ ایجاد'
+
+    def __str__(self):
+        return f'{self.author.username} - {self.article.title}'
+
+    class Meta:
+        verbose_name = 'دیدگاه'
+        verbose_name_plural = 'دیدگاه ها'
